@@ -38,8 +38,9 @@ public class Dashboard extends AppCompatActivity {
                   /*  case R.id.doclist:
                         fragment = new doclit();
                         return true;*/
-
                 }
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment,fragment).commit();
+
                 return false;
             }
         };
