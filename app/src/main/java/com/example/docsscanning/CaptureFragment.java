@@ -1,12 +1,16 @@
 package com.example.docsscanning;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CaptureFragment extends Fragment {
+    ImageView click_image_id;
+    private static final int pic_id = 123;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +32,7 @@ public class CaptureFragment extends Fragment {
 
     public CaptureFragment() {
         // Required empty public constructor
+        click_image_id = (ImageView) click_image_id.findViewById(R.id.img_view_cap);
     }
 
     /**
@@ -53,6 +60,16 @@ public class CaptureFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        // Create the camera_intent ACTION_IMAGE_CAPTURE
+        // it will open the camera for capture the image
+        Intent camera_intent
+                = new Intent(MediaStore
+                .ACTION_IMAGE_CAPTURE);
+
+        // Start the activity with camera_intent,
+        // and request pic id
+        //noinspection deprecation
+        startActivityForResult(camera_intent, pic_id);
     }
 
     @Override
@@ -60,5 +77,23 @@ public class CaptureFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_capture, container, false);
+    }
+    @SuppressWarnings("deprecation")
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 Intent data)
+    {
+
+        // Match the request 'pic id with requestCode
+        if (requestCode == pic_id) {
+
+            // BitMap is data structure of image file
+            // which stor the image in memory
+            Bitmap photo = (Bitmap)data.getExtras()
+                    .get("data");
+
+            // Set the image in imageview for display
+            click_image_id.setImageBitmap(photo);
+        }
     }
 }

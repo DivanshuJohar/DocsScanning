@@ -30,8 +30,6 @@ public class Dashboard extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.gallery:
-                        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                        startActivityForResult(gallery, PICK_IMAGE);
                         fragment = new GalleryFragment();
                         return true;
                     case R.id.capture:

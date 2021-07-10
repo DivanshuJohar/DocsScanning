@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import static androidx.media.MediaBrowserServiceCompat.RESULT_OK;
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,14 +26,16 @@ import static androidx.media.MediaBrowserServiceCompat.RESULT_OK;
  * create an instance of this fragment.
  */
 public class GalleryFragment extends Fragment {
-    private static final int PICK_IMAGE = 100;
+    int SELECT_PICTURE = 200;
     Uri imageUri;
     ImageView imageView;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -40,6 +43,8 @@ public class GalleryFragment extends Fragment {
 
     public GalleryFragment() {
         // Required empty public constructor
+        imageView = (ImageView) imageView.findViewById(R.id.img_view);
+
     }
 
     /**
@@ -67,16 +72,14 @@ public class GalleryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
+            Intent i = new Intent();
+            i.setType("image/*");
+            i.setAction(Intent.ACTION_GET_CONTENT);
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-        }
+            // pass the constant to compare it
+            // with the returned requestCode
+            //noinspection deprecation
+            startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
     @Override
@@ -84,7 +87,25 @@ public class GalleryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_gallery, container, false);
-    }
 
     }
 
+    @SuppressWarnings("deprecation")
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    imageView.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+}
