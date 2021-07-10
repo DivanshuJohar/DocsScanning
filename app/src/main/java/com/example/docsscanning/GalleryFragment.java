@@ -43,7 +43,6 @@ public class GalleryFragment extends Fragment {
 
     public GalleryFragment() {
         // Required empty public constructor
-        imageView = (ImageView) imageView.findViewById(R.id.img_view);
 
     }
 

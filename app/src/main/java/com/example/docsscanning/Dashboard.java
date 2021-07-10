@@ -22,10 +22,15 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        bottomNavigationView =(BottomNavigationView)findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        // as soon as the application opens the first
+        // fragment should be shown to the user
+        // in this case it is algorithm fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new CaptureFragment()).commit();
+    }
+        private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -41,15 +46,12 @@ public class Dashboard extends AppCompatActivity {
                         fragment = new doclit();
                         return true;*/
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, fragment)
+                        .commit();
                 return true;
             }
-        });
+        };
     }
-    private void setDefaultFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.flFragment, new CaptureFragment());
-        transaction.commit();
 
-    }
-}

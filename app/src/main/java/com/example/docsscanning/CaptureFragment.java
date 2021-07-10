@@ -32,7 +32,6 @@ public class CaptureFragment extends Fragment {
 
     public CaptureFragment() {
         // Required empty public constructor
-        click_image_id = (ImageView) click_image_id.findViewById(R.id.img_view_cap);
     }
 
     /**
