@@ -35,9 +35,9 @@ public class Dashboard extends AppCompatActivity {
                     case R.id.capture:
                         fragment = new CaptureFragment();
                         return true;
-                    case R.id.doclist:
+                  /*  case R.id.doclist:
                         fragment = new doclit();
-                        return true;
+                        return true;*/
 
                 }
                 return false;
