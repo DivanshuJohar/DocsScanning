@@ -27,7 +27,6 @@ import static android.app.Activity.RESULT_OK;
  */
 public class GalleryFragment extends Fragment {
     int SELECT_PICTURE = 200;
-    Uri imageUri;
     ImageView imageView;
 
 
@@ -71,14 +70,16 @@ public class GalleryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-            Intent i = new Intent();
-            i.setType("image/*");
-            i.setAction(Intent.ACTION_GET_CONTENT);
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
 
-            // pass the constant to compare it
-            // with the returned requestCode
-            //noinspection deprecation
-            startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        // pass the constant to compare it
+        // with the returned requestCode
+        //noinspection deprecation
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
     @Override
@@ -89,7 +90,8 @@ public class GalleryFragment extends Fragment {
 
     }
 
-    @SuppressWarnings("deprecation")
+    // this function is triggered when user
+    // selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -108,3 +110,4 @@ public class GalleryFragment extends Fragment {
         }
     }
 }
+
