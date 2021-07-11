@@ -19,7 +19,7 @@ import android.widget.ImageView;
  */
 public class CaptureFragment extends Fragment {
     ImageView click_image_id;
-    private static final int pic_id = 123;
+    private static final int pic_id = 50;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
