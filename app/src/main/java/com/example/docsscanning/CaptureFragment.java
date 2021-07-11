@@ -2,15 +2,19 @@ package com.example.docsscanning;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +97,14 @@ public class CaptureFragment extends Fragment {
 
             // Set the image in imageview for display
             click_image_id.setImageBitmap(photo);
+
+            String path = Environment.getExternalStorageDirectory() + "/CameraImages/example.jpg";
+            File file = new File(path);
+            Uri outputFileUri = Uri.fromFile( file );
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
+            intent.putExtra( MediaStore.EXTRA_OUTPUT, outputFileUri );
+
+            startActivityForResult( intent, pic_id);
         }
     }
 }
