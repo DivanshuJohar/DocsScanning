@@ -28,7 +28,7 @@ public class Dashboard extends AppCompatActivity {
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new GalleryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new CaptureFragment()).commit();
     }
         private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
