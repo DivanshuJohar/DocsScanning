@@ -46,9 +46,9 @@ public class Dashboard extends AppCompatActivity {
                     case R.id.capture:
                         fragment = new CaptureFragment();
                         break;
-                  /*  case R.id.doclist:
-                        fragment = new doclit();
-                        return true;*/
+                    case R.id.doclist:
+                        fragment = new DocumentListFragment();
+                        return true;
                 }
                 getSupportFragmentManager()
                         .beginTransaction()

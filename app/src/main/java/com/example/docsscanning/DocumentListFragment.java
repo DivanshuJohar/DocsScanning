@@ -3,10 +3,13 @@ package com.example.docsscanning;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,8 +18,10 @@ import android.view.ViewGroup;
  */
 public class DocumentListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //Button document_list_recycler_view;
+    RecyclerView document_list_recycler_view;
+    public static  RecyclerView.Adapter mAdapter_document_lists ;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -28,14 +33,6 @@ public class DocumentListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DocumentListFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static DocumentListFragment newInstance(String param1, String param2) {
         DocumentListFragment fragment = new DocumentListFragment();
@@ -58,10 +55,13 @@ public class DocumentListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_document_list, container, false);
         View v = inflater.inflate(R.layout.fragment_document_list, container, false);
-       // instantiate(v);
         return  v;
+    }
+
+    public void instantiate(View v){
+        document_list_recycler_view =  v.findViewById(R.id.document_list_recycler_view);
+        //recyclerView = v.findViewById(R.id.)
+       // mAdapter_document_lists = ArrayAdapter<>
     }
 }

@@ -107,4 +107,5 @@ public class CaptureFragment extends Fragment {
             startActivityForResult( intent, pic_id);
         }
     }
+
 }
