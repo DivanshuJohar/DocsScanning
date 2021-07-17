@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650077297611",
+    "project_id": "docs-scanning",
+    "storage_bucket": "docs-scanning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650077297611:android:299bb1cbe8691b4ee2744e",
+        "android_client_info": {
+          "package_name": "com.example.docsscanning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650077297611-qatb38qku7oeqvtro4em37qijekkg10r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWc9eeBz_hWOcKam9hMZTyKkAtu_0KnhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650077297611-qatb38qku7oeqvtro4em37qijekkg10r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
