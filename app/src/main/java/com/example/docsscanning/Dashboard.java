@@ -34,31 +34,27 @@ public class Dashboard extends AppCompatActivity {
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new GalleryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new DocumentListFragment()).commit();
     }
-        private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+                    Fragment fragment = null;
+                    switch (item.getItemId()) {
+                        case R.id.gallery:
+                            fragment = new GalleryFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                        case R.id.capture:
+                            fragment = new CaptureFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                        case R.id.doclist:
+                            fragment = new DocumentListFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                    }
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()) {
-                    case R.id.gallery:
-                        fragment = new GalleryFragment();
-                        return true;
-                    case R.id.capture:
-                        fragment = new CaptureFragment();
-                        return true;
-                    case R.id.doclist:
-                        fragment = new DocumentListFragment();
-                        return true;
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flFragment, fragment)
-                        .commit();
-                return true;
-            }
-        };
+                    return true;
+                };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN_TIME_OUT = 1000;
 
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //This method is used so that your splash activity
         //can cover the entire screen.
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

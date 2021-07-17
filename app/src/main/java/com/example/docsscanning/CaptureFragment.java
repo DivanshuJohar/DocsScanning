@@ -65,9 +65,7 @@ public class CaptureFragment extends Fragment {
         }
         // Create the camera_intent ACTION_IMAGE_CAPTURE
         // it will open the camera for capture the image
-        Intent camera_intent
-                = new Intent(MediaStore
-                .ACTION_IMAGE_CAPTURE);
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Start the activity with camera_intent,
         // and request pic id
@@ -76,17 +74,13 @@ public class CaptureFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_capture, container, false);
+        View view =  inflater.inflate(R.layout.fragment_capture, container, false);
+        return view;
     }
     @SuppressWarnings("deprecation")
-    public void onActivityResult(int requestCode,
-                                 int resultCode,
-                                 Intent data)
-    {
-
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Match the request 'pic id with requestCode
         if (requestCode == pic_id) {
 

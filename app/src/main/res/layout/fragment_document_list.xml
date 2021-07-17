@@ -5,8 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".DocumentListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/document_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    </LinearLayout>
 </FrameLayout>
