@@ -31,7 +31,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
+        bottomNav.setSelectedItemId(R.id.doclist);
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
