@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
@@ -41,20 +42,22 @@ public class Dashboard extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.gallery:
                             fragment = new GalleryFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            fragmentmanager(fragment);
+                           // getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
                             return true;
                         case R.id.capture:
                             fragment = new CaptureFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            fragmentmanager(fragment);
+                           // getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
                             return true;
                         case R.id.doclist:
                             fragment = new DocumentListFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            fragmentmanager(fragment);
+                            //getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
                             return true;
                     }
-
-                    return true;
-                };
+            return true;
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,5 +91,15 @@ public class Dashboard extends AppCompatActivity {
             }
         }
     }
+
+    public void fragmentmanager(Fragment frag){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flFragment, frag, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // name can be null
+                .commit();
+
     }
+}
 
