@@ -6,17 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Dashboard extends AppCompatActivity {
     private ActionBar toolbar;
     BottomNavigationView bottomNavigationView;
-
+    public static final int permit_code = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +57,17 @@ public class Dashboard extends AppCompatActivity {
                 return true;
             }
         };
+    public void check(View v){
+        //check permission
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
+            if(checkSelfPermission(Manifest.permission.CAMERA)==
+            PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                    PackageManager.PERMISSION_DENIED)
+            {
+                String[] permit = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permit,permit_code);
+            }
+        }
+    }
     }
 
