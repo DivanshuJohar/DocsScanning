@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+            <item
+                android:title="Search documents"
+                android:icon="@drawable/ic_baseline_search"
+                android:id="@+id/search"
+                />
+            <item
+                android:title="Merge document"
+                android:icon="@drawable/ic_baseline_merge_type"
+                android:id="@+id/merge"
+                />
+</menu>

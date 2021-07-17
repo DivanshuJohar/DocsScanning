@@ -12,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,10 +44,10 @@ public class Dashboard extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.gallery:
                         fragment = new GalleryFragment();
-                        break;
+                        return true;
                     case R.id.capture:
                         fragment = new CaptureFragment();
-                        break;
+                        return true;
                     case R.id.doclist:
                         fragment = new DocumentListFragment();
                         return true;
@@ -57,6 +59,27 @@ public class Dashboard extends AppCompatActivity {
                 return true;
             }
         };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.search:
+                // do your code
+                return true;
+            case R.id.merge:
+                // do your code
+                return true;
+        }
+        return true;
+    }
+
     public void check(View v){
         //check permission
         if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
