@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"/>
 
-    <androidx.appcompat.widget.ActionMenuView
+   <androidx.appcompat.widget.ActionMenuView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:menu="@menu/dashboard_option_menu"/>

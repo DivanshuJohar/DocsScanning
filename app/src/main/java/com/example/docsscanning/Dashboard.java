@@ -40,11 +40,11 @@ public class Dashboard extends AppCompatActivity {
         private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
                     Fragment fragment = null;
                     switch (item.getItemId()) {
-                        case R.id.gallery:
+                       /* case R.id.gallery:
                             fragment = new GalleryFragment();
                             fragmentmanager(fragment);
                            // getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
-                            return true;
+                            return true;*/
                         case R.id.capture:
                             fragment = new CaptureFragment();
                             fragmentmanager(fragment);
@@ -77,19 +77,6 @@ public class Dashboard extends AppCompatActivity {
                 return true;
         }
         return true;
-    }
-
-    public void check(View v){
-        //check permission
-        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
-            if(checkSelfPermission(Manifest.permission.CAMERA)==
-            PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-                    PackageManager.PERMISSION_DENIED)
-            {
-                String[] permit = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                requestPermissions(permit,permit_code);
-            }
-        }
     }
 
     public void fragmentmanager(Fragment frag){

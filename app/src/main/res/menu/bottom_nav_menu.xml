@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
             android:id="@+id/capture"
-            android:title="Capture"
+            android:title="Capture/Gallery"
             android:icon="@drawable/ic_baseline_photo_camera"/>
 
         <item
             android:id="@+id/doclist"
             android:title="Document List"
             android:icon="@drawable/ic_baseline_view_list"/>
-        <item
+        <!--<item
             android:id="@+id/gallery"
             android:title="Gallery"
             android:icon="@drawable/ic_baseline_image"
-            />
+            />-->
 
 </menu>
