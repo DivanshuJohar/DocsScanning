@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
-            android:id="@+id/gallery"
-            android:title="Gallery"
-            android:icon="@drawable/ic_baseline_image"
-            />
-        <item
             android:id="@+id/capture"
             android:title="Capture"
             android:icon="@drawable/ic_baseline_photo_camera"/>
+
         <item
             android:id="@+id/doclist"
             android:title="Document List"
             android:icon="@drawable/ic_baseline_view_list"/>
+        <item
+            android:id="@+id/gallery"
+            android:title="Gallery"
+            android:icon="@drawable/ic_baseline_image"
+            />
+
 </menu>

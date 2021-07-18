@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
@@ -30,35 +31,33 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
+        bottomNav.setSelectedItemId(R.id.doclist);
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new GalleryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new DocumentListFragment()).commit();
     }
-        private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()) {
-                    case R.id.gallery:
-                        fragment = new GalleryFragment();
-                        return true;
-                    case R.id.capture:
-                        fragment = new CaptureFragment();
-                        return true;
-                    case R.id.doclist:
-                        fragment = new DocumentListFragment();
-                        return true;
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flFragment, fragment)
-                        .commit();
-                return true;
-            }
-        };
+        private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+                    Fragment fragment = null;
+                    switch (item.getItemId()) {
+                        case R.id.gallery:
+                            fragment = new GalleryFragment();
+                            fragmentmanager(fragment);
+                           // getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                        case R.id.capture:
+                            fragment = new CaptureFragment();
+                            fragmentmanager(fragment);
+                           // getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                        case R.id.doclist:
+                            fragment = new DocumentListFragment();
+                            fragmentmanager(fragment);
+                            //getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment).commit();
+                            return true;
+                    }
+            return true;
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,5 +91,15 @@ public class Dashboard extends AppCompatActivity {
             }
         }
     }
+
+    public void fragmentmanager(Fragment frag){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flFragment, frag, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // name can be null
+                .commit();
+
     }
+}
 
