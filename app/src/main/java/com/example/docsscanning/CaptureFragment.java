@@ -1,6 +1,7 @@
 package com.example.docsscanning;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,8 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import static android.app.Activity.RESULT_OK;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,21 +66,7 @@ public class CaptureFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        capture_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // Toast.makeText(fragmentActivity,"Camera Opened", Toast.LENGTH_SHORT).show();
-                askCameraPermission();
-            }
-        });
 
-        gallery_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(fragmentActivity,"Phone Gallery Opened", Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
     private void askCameraPermission() {
@@ -121,6 +106,22 @@ public class CaptureFragment extends Fragment {
         capture_button = view.findViewById(R.id.capture_button);
         gallery_button = view.findViewById(R.id.gallery_button);
 
+        capture_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(fragmentActivity,"Camera Opened", Toast.LENGTH_SHORT).show();
+                askCameraPermission();
+            }
+        });
+
+        gallery_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(fragmentActivity,"Phone Gallery Opened", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         return view;
     }
 
@@ -128,12 +129,10 @@ public class CaptureFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Match the request 'pic id with requestCode
         if (requestCode == CAMERA_REQUEST_CODE) {
-            // BitMap is data structure of image file
-            // which stor the image in memory
-            Bitmap photo = (Bitmap)data.getExtras().get("data");
-            // Set the image in imageview for display
-            click_image_id.setImageBitmap(photo);
-
+            if(resultCode == Activity.RESULT_OK){
+                File f = new File(currentPhotoPath);
+                click_image_id.setImageURI(Uri.fromFile(f));
+            }
         }
     }
 
@@ -160,7 +159,7 @@ public class CaptureFragment extends Fragment {
             }catch(Exception e){
             }
             if(photoFile!= null){
-                Uri photoURI = FileProvider.getUriForFile(fragmentActivity,"", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(fragmentActivity,"com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 //noinspection deprecation
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);

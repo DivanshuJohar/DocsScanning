@@ -23,7 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Dashboard extends AppCompatActivity {
     private ActionBar toolbar;
     BottomNavigationView bottomNavigationView;
-    public static final int permit_code = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class Dashboard extends AppCompatActivity {
         // as soon as the application opens the first
         // fragment should be shown to the user
         // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new DocumentListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new CaptureFragment()).commit();
     }
         private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
                     Fragment fragment = null;
