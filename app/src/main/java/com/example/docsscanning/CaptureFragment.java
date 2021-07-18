@@ -66,6 +66,7 @@ public class CaptureFragment extends Fragment {
                 // Create the camera_intent ACTION_IMAGE_CAPTURE
                 // it will open the camera for capture the image
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //noinspection deprecation
                 startActivityForResult(camera_intent, pic_id);
             }
         });

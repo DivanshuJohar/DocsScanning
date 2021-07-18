@@ -7,6 +7,7 @@
     android:weightSum="5"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal"
     android:background="@drawable/view_data_border_layout">
