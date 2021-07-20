@@ -140,7 +140,7 @@ public class CaptureFragment extends Fragment {
         // create an image  file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = fragmentActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName,
                 ".jpg",
                 storageDir
@@ -152,14 +152,14 @@ public class CaptureFragment extends Fragment {
 
     private void dispatchTakePictureIntent(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePictureIntent.resolveActivity(fragmentActivity.getPackageManager())!= null){
+        if(takePictureIntent.resolveActivity(getActivity().getPackageManager())!= null){
             File photoFile = null;
             try{
                 photoFile = createImageFile();
             }catch(Exception e){
             }
             if(photoFile!= null){
-                Uri photoURI = FileProvider.getUriForFile(fragmentActivity,"com.example.android.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),"com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 //noinspection deprecation
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
