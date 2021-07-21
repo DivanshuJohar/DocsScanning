@@ -132,6 +132,7 @@ public class CaptureFragment extends Fragment {
             if(resultCode == Activity.RESULT_OK){
                 File f = new File(currentPhotoPath);
                 click_image_id.setImageURI(Uri.fromFile(f));
+                Log.d("tag", "Absolute Uri of image is: "+ Uri.fromFile(f));
             }
         }
     }
