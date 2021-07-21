@@ -2,6 +2,7 @@ package com.example.docsscanning;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import java.util.Date;
 
 public class CaptureFragment extends Fragment {
     public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int GALLERY_REQUEST_CODE = 105;
     ImageView click_image_id;
     private Button capture_button,gallery_button;
     FragmentActivity fragmentActivity = getActivity();
@@ -123,10 +126,8 @@ public class CaptureFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(fragmentActivity,"Phone Gallery Opened", Toast.LENGTH_SHORT).show();
-                GalleryFragment galleryFragment = new GalleryFragment();
-                @SuppressWarnings("deprecation") FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment,galleryFragment);
-                transaction.commit();
+                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
             }
         });
 
@@ -141,8 +142,25 @@ public class CaptureFragment extends Fragment {
                 File f = new File(currentPhotoPath);
                 click_image_id.setImageURI(Uri.fromFile(f));
                 Log.d("tag", "Absolute Uri of image is: "+ Uri.fromFile(f));
+
             }
         }
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                Uri contentUri = data.getData();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String imageFileName = "JPEG_" + timeStamp + "."+getFileExt(contentUri);
+                Log.d("tag", "onActivityResult: Gallery ImageUri: "+ imageFileName);
+                click_image_id.setImageURI(contentUri);
+
+            }
+        }
+    }
+
+    private String getFileExt(Uri contentUri) {
+        ContentResolver c = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
 
     private File createImageFile() throws IOException{

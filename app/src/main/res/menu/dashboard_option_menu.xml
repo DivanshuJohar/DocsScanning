@@ -6,12 +6,10 @@
                 android:title="Search documents"
                 android:icon="@drawable/ic_baseline_search"
                 android:id="@+id/search"
-                app:showAsAction="never"
                 />
             <item
                 android:title="Merge document"
                 android:icon="@drawable/ic_baseline_merge_type"
                 android:id="@+id/merge"
-                app:showAsAction="never"
                 />
 </menu>
