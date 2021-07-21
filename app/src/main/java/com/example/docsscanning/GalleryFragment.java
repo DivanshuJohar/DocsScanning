@@ -92,6 +92,7 @@ public class GalleryFragment extends Fragment {
 
     // this function is triggered when user
     // selects the image from the imageChooser
+    @SuppressWarnings("deprecation")
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

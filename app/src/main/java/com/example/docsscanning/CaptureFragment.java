@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -38,6 +39,8 @@ public class CaptureFragment extends Fragment {
     FragmentActivity fragmentActivity = getActivity();
     public static final int CAMERA_PERM_CODE = 101;
     String currentPhotoPath;
+    Fragment galleryFragment = new GalleryFragment();
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -47,6 +50,8 @@ public class CaptureFragment extends Fragment {
     private String mParam2;
     public static CaptureFragment fragment = new CaptureFragment();
     public CaptureFragment() {
+        // Required empty public constructor
+
     }
 
     // TODO: Rename and change types and number of parameters
@@ -118,7 +123,10 @@ public class CaptureFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(fragmentActivity,"Phone Gallery Opened", Toast.LENGTH_SHORT).show();
-
+                GalleryFragment galleryFragment = new GalleryFragment();
+                @SuppressWarnings("deprecation") FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flFragment,galleryFragment);
+                transaction.commit();
             }
         });
 
