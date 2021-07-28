@@ -41,6 +41,7 @@ public class CaptureFragment extends Fragment {
     private Button capture_button,gallery_button;
     FragmentActivity fragmentActivity = getActivity();
     public static final int CAMERA_PERM_CODE = 101;
+    public static final int Gallery_PERM_CODE = 106;
     String currentPhotoPath;
     Fragment galleryFragment = new GalleryFragment();
 
@@ -100,7 +101,17 @@ public class CaptureFragment extends Fragment {
             if(grantResults.length > 0 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
                 dispatchTakePictureIntent();
             }else{
-                Toast.makeText(fragmentActivity, "Camera Permission is required", Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragmentActivity, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(requestCode == Gallery_PERM_CODE){
+            if(grantResults.length > 0 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //noinspection deprecation
+                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+            }else{
+                Toast.makeText(fragmentActivity, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -125,13 +136,24 @@ public class CaptureFragment extends Fragment {
         gallery_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(fragmentActivity,"Phone Gallery Opened", Toast.LENGTH_SHORT).show();
-                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+                askPermission();
+
             }
         });
 
         return view;
+    }
+
+    private void askPermission() {
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            //noinspection deprecation
+            requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, Gallery_PERM_CODE);
+        }
+        else{
+            Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //noinspection deprecation
+            startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -143,6 +165,11 @@ public class CaptureFragment extends Fragment {
                 click_image_id.setImageURI(Uri.fromFile(f));
                 Log.d("tag", "Absolute Uri of image is: "+ Uri.fromFile(f));
 
+                Intent mediascan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri = Uri.fromFile(f);
+                mediascan.setData(contentUri);
+                getActivity().sendBroadcast(mediascan);
+
             }
         }
         if (requestCode == GALLERY_REQUEST_CODE) {
@@ -150,7 +177,7 @@ public class CaptureFragment extends Fragment {
                 Uri contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp + "."+getFileExt(contentUri);
-                Log.d("tag", "onActivityResult: Gallery ImageUri: "+ imageFileName);
+                Log.d("tag", "onActivityResult: Gallery Image Uri: "+ imageFileName);
                 click_image_id.setImageURI(contentUri);
 
             }
@@ -168,6 +195,7 @@ public class CaptureFragment extends Fragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        //File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName,
                 ".jpg",
                 storageDir
