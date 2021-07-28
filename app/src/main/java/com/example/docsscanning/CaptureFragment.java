@@ -29,6 +29,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,6 +49,7 @@ public class CaptureFragment extends Fragment {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int Gallery_PERM_CODE = 106;
     String currentPhotoPath;
+    StorageReference storageReference;
     Fragment galleryFragment = new GalleryFragment();
 
 
@@ -124,6 +131,7 @@ public class CaptureFragment extends Fragment {
         click_image_id = view.findViewById(R.id.img_view_cap);
         capture_button = view.findViewById(R.id.capture_button);
         gallery_button = view.findViewById(R.id.gallery_button);
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         capture_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +177,7 @@ public class CaptureFragment extends Fragment {
                 Uri contentUri = Uri.fromFile(f);
                 mediascan.setData(contentUri);
                 getActivity().sendBroadcast(mediascan);
+                uploadToFirebase(f.getName(),contentUri);
 
             }
         }
@@ -179,9 +188,31 @@ public class CaptureFragment extends Fragment {
                 String imageFileName = "JPEG_" + timeStamp + "."+getFileExt(contentUri);
                 Log.d("tag", "onActivityResult: Gallery Image Uri: "+ imageFileName);
                 click_image_id.setImageURI(contentUri);
+                uploadToFirebase(imageFileName,contentUri);
 
             }
         }
+    }
+
+    private void uploadToFirebase(String name, Uri contentUri) {
+        StorageReference image = storageReference.child("images/" + name);
+        image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(@NonNull Uri uri) {
+                        Log.d("tag", "Upload Image Uri is " + uri.toString());
+                    }
+                });
+                Toast.makeText(fragmentActivity,"Image is Uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(fragmentActivity,"Image Upload Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private String getFileExt(Uri contentUri) {
