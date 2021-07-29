@@ -177,7 +177,7 @@ public class CaptureFragment extends Fragment {
                 Uri contentUri = Uri.fromFile(f);
                 mediascan.setData(contentUri);
                 getActivity().sendBroadcast(mediascan);
-                uploadToFirebase(f.getName(),contentUri);
+                //uploadToFirebase(f.getName(),contentUri);
 
             }
         }
@@ -188,7 +188,7 @@ public class CaptureFragment extends Fragment {
                 String imageFileName = "JPEG_" + timeStamp + "."+getFileExt(contentUri);
                 Log.d("tag", "onActivityResult: Gallery Image Uri: "+ imageFileName);
                 click_image_id.setImageURI(contentUri);
-                uploadToFirebase(imageFileName,contentUri);
+                //uploadToFirebase(imageFileName,contentUri);
 
             }
         }
