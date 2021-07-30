@@ -14,4 +14,5 @@
     <string name="todo">TODO</string>
     <string name="gallery">Gallery</string>
     <string name="capture">Capture</string>
+    <string name="convert">Covert To PDF</string>
 </resources>
