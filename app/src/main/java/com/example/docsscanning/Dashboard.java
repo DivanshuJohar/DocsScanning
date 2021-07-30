@@ -39,9 +39,9 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
          searchView = findViewById(R.id.searchView);
          myList = findViewById(R.id.searchlistview);
-         list.add("");
-         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-         myList.setAdapter(adapter);
+//         list.add("");
+  //       adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+    //     myList.setAdapter(adapter);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -86,8 +86,8 @@ public class Dashboard extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.search:
                 // do your code
-                fragment = new GalleryFragment();
-                fragmentmanager(fragment);
+                //fragment = new GalleryFragment();
+                //fragmentmanager(fragment);
                 return true;
             case R.id.merge:
                 // do your code
